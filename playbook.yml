@@ -1,0 +1,35 @@
+---
+- name: Execute ping command on the hosts
+  hosts: all
+  tasks:
+    - name: Ping the hosts
+      ping:
+
+- name: Execute bash script on the slave and verify PHP application accessibility
+  hosts: 192.168.33.11
+  tasks:
+
+    - name: Transfer the bash script to the slave
+      copy:
+        src:  ~/scripts/lamp_deploy.sh
+        dest: /tmp/lamp_deploy.sh
+
+    - name: Set execute permissions on the script
+      file:
+        path: /tmp/lamp_deploy.sh
+        mode: 0755
+
+    - name: Execute the script on the slave
+      shell: /tmp/lamp_deploy.sh
+      become: yes
+
+- name: cron job to check server uptime
+  hosts: 192.168.33.11
+  tasks:
+    - name: Add cron job to check server uptime
+      cron:
+        name: Check Server Uptime
+        job: /usr/bin/uptime >> /var/log/server_uptime.log
+        minute: 0
+        hour: 0
+        state: present
