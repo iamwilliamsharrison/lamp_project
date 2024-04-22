@@ -1,5 +1,5 @@
 # lamp_project
-Alt-school exam Project (Deploying a LAMP Stack using Bash Script and Ansible)
+              Alt-school exam Project (Deploying a LAMP Stack using Bash Script and Ansible)
  
 
   In Accomplishing this Project 
